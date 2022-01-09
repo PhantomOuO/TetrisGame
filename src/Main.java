@@ -63,7 +63,6 @@ public class Main {
                         }
                     }
                     for (int j = 1; j < (MainFrame.gameY - 2); j++) { // 遊戲失敗
-                        System.out.print(MainFrame.data[3][j]);
                         if (MainFrame.data[3][j] == 1) {
                             state = false;
                             break;
