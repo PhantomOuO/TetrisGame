@@ -12,17 +12,29 @@ import java.awt.event.KeyListener;
 import java.awt.*;
 
 public class MainFrame extends JFrame implements KeyListener {
+    Font font = new Font("微軟正黑體", Font.BOLD, 20);
     static final int gameX = 26; // 行數
     static final int gameY = 12; // 行數
     static JTextArea[][] text;// 文字
     static int[][] data;
-    JLabel gameState; // 遊戲狀態
+    static JLabel gameState; // 遊戲狀態
     static JLabel gameScore; // 遊戲分數
     static int score = 0; // 預設分數0
-
+    static int t = 0;
     public MainFrame() { // 初始化
         text = new JTextArea[gameX][gameY];
         data = new int[gameX][gameY];
+
+        gameState = new JLabel("        #初始化#        ");
+        gameState.setFont(font);
+        gameState.setForeground(Color.RED);
+        gameState.setText("        開始中!        ");
+
+        gameScore = new JLabel("     #初始化#      ");
+        gameScore.setFont(font);
+        gameScore.setForeground(Color.RED);
+        gameScore.setText("          " + "          "+"00分");
+
         initGamePanel();
         initExplainPanel();
         init(); // 介面
@@ -41,7 +53,6 @@ public class MainFrame extends JFrame implements KeyListener {
         JPanel gameMain = new JPanel();
         JPanel Wapper = new JPanel();
         gameMain.setLayout(new GridLayout(gameX, gameY, 1, 1));// 布局
-
         for (int i = 0; i < text.length; i++) {
             for (int j = 0; j < text[i].length; j++) {
                 text[i][j] = new JTextArea(gameX, gameY); // 設定
@@ -50,7 +61,8 @@ public class MainFrame extends JFrame implements KeyListener {
                 text[i][j].setEditable(false);// 設定不可編輯
 
                 if (j == 0 || j == text[i].length - 1 || i == text.length - 1) {
-                    text[i][j].setBackground(Color.GRAY); // 設定背景為黑色
+                    text[i][j].setBackground(Color.GRAY); // 設定背景為灰色
+                    
                     data[i][j] = 1; // 設定邊界為有方塊
                 }
 
@@ -63,17 +75,21 @@ public class MainFrame extends JFrame implements KeyListener {
         this.setLayout(new BorderLayout());
         this.add(Wapper);
     }
-
+    public static void StateText(int r){
+        t = r;
+    }
     public void initExplainPanel() { // 初始化遊玩規則介面
         JPanel explainText = new JPanel();
         JPanel explainState = new JPanel();
         JPanel explainScore = new JPanel();
+        JPanel explainAuthor = new JPanel();
         JPanel explain = new JPanel();
         var font = new Font("微軟正黑體", Font.BOLD, 20);
         
         explainText.setLayout(new BoxLayout(explainText, BoxLayout.Y_AXIS));
         explainState.setLayout(new BoxLayout(explainState, BoxLayout.Y_AXIS));
         explainScore.setLayout(new BoxLayout(explainScore, BoxLayout.Y_AXIS));
+        explainAuthor.setLayout(new BoxLayout(explainAuthor, BoxLayout.Y_AXIS));
 
         var a = new JLabel("空白鍵:改變方向");// 操作方法說明文字
         a.setFont(font);
@@ -91,14 +107,12 @@ public class MainFrame extends JFrame implements KeyListener {
         d.setFont(font);
         explainText.add(d);
 
-        var gameState = new JLabel("開始!     ");
-        gameState.setFont(font);
-
-        var gameScore = new JLabel("0      ");
-        gameScore.setFont(font);
-
-        explainState.add(gameState); // 把遊戲狀態加入說明介面
+        var e = new JLabel("  "+"       3B032104");
+        e.setFont(font);
+        explainAuthor.add(e);
         
+         
+        explainState.add(gameState); // 把遊戲狀態加入說明介面
         explainScore.add(gameScore); // 把遊戲分數加入說明介面
         
         explainText.setSize(100, 500); 
@@ -118,12 +132,19 @@ public class MainFrame extends JFrame implements KeyListener {
         border3.setTitleFont(font);
         border3.setBorder(new LineBorder(Color.black, 3, true));
         explainScore.setBorder(BorderFactory.createCompoundBorder(border3, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-
+        
+        explainScore.setSize(100, 500);
+        var border4 = BorderFactory.createTitledBorder("作者");
+        border4.setTitleFont(font);
+        border4.setBorder(new LineBorder(Color.black, 3, true));
+        explainAuthor.setBorder(BorderFactory.createCompoundBorder(border4, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        
         explain.setLayout(new BoxLayout(explain, BoxLayout.Y_AXIS));
 
         explain.add(explainText);
         explain.add(explainState);
         explain.add(explainScore);
+        explain.add(explainAuthor);
 
         explain.setBorder(BorderFactory.createEmptyBorder(35, 0, 35, 35));
         this.add(explain, BorderLayout.EAST); // 把說明加入主介面

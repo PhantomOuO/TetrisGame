@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.util.Random;
-
+import java.awt.*;
 public class Main {
     MainFrame frame = new MainFrame();
     static Random rng = new Random();
@@ -25,13 +25,16 @@ public class Main {
     }
 
     public void gameBegin() { // 遊戲開始
+        Font font = new Font("微軟正黑體", Font.BOLD, 20);
         while (true) {
             if (!state) { 
                 break;// 遊戲結束
             }
             gameRun(); // 開始遊戲
         }
-        frame.gameState.setText("遊戲狀態:結束!");
+        MainFrame.gameState.setFont(font);
+        MainFrame.gameState.setForeground(Color.RED);
+        MainFrame.gameState.setText("        已結束!       ");
     }
 
     public void randomRect() { // 產生隨機墜落方塊
@@ -111,6 +114,7 @@ public class Main {
     }
 
     public void removeRow(int row) { // 刪除方塊已滿的行
+        Font font = new Font("微軟正黑體", Font.BOLD, 20);
         int temp = 50;
         for (int k = row; k >= 1; k--) {
             for (int p = 1; p <= (MainFrame.gameY - 2); p++) {
@@ -123,7 +127,9 @@ public class Main {
             time -= temp;
         }
         MainFrame.score += temp; // 消除行 加分50
-        MainFrame.gameScore.setText("遊戲分數:" + MainFrame.score);
+        MainFrame.gameScore.setFont(font);
+        MainFrame.gameScore.setForeground(Color.RED);
+        MainFrame.gameScore.setText("          " + "          "+ MainFrame.score+"分");
     }
 
     public void reFresh(int row) { // 消除行後刷新介面
