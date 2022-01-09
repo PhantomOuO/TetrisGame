@@ -59,7 +59,8 @@ public class Main {
                             removeRow(j);// 刪除該行
                         }
                     }
-                    for (int j = 1; j <= (MainFrame.gameY); j++) { // 遊戲失敗
+                    for (int j = 1; j < (MainFrame.gameY - 2); j++) { // 遊戲失敗
+                        System.out.print(MainFrame.data[3][j]);
                         if (MainFrame.data[3][j] == 1) {
                             state = false;
                             break;
@@ -111,12 +112,12 @@ public class Main {
 
     public void removeRow(int row) { // 刪除方塊已滿的行
         int temp = 50;
-        for (int k = row; k < 1; k--) {
+        for (int k = row; k >= 1; k--) {
             for (int p = 1; p <= (MainFrame.gameY - 2); p++) {
                 MainFrame.data[k][p] = MainFrame.data[k - 1][p]; // 將該行每格data設無方塊
             }
         }
-        reFlesh(row);
+        reFresh(row);
 
         if (time > temp) { // 下墜加速
             time -= temp;
@@ -125,7 +126,7 @@ public class Main {
         MainFrame.gameScore.setText("遊戲分數:" + MainFrame.score);
     }
 
-    public void reFlesh(int row) { // 消除行後刷新介面
+    public void reFresh(int row) { // 消除行後刷新介面
         for (int k = row; k >= 1; k--) {
             for (int p = 1; p <= (MainFrame.gameY - 2); p++) {
                 if (MainFrame.data[k][p] == 1) {

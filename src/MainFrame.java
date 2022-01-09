@@ -1,7 +1,12 @@
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.*;
@@ -18,15 +23,13 @@ public class MainFrame extends JFrame implements KeyListener {
     public MainFrame() { // 初始化
         text = new JTextArea[gameX][gameY];
         data = new int[gameX][gameY];
-        gameState = new JLabel(" 遊戲狀態:開始! ");
-        gameScore = new JLabel(" 遊戲分數:0 ");
         initGamePanel();
         initExplainPanel();
         init(); // 介面
     }
 
     private void init() { // 初始化介面
-        this.setSize(600, 950); // 設定介面長寬
+        this.setSize(650, 950); // 設定介面長寬
         this.setLocationRelativeTo(null); // 設定初始介面座標
         this.setTitle("俄羅斯方塊 Tertris"); // 設定標題(俄羅斯方塊Tertris)
         this.setDefaultCloseOperation(EXIT_ON_CLOSE); // 設定關閉程式
@@ -36,6 +39,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
     public void initGamePanel() { // 初始化遊戲邊界
         JPanel gameMain = new JPanel();
+        JPanel Wapper = new JPanel();
         gameMain.setLayout(new GridLayout(gameX, gameY, 1, 1));// 布局
 
         for (int i = 0; i < text.length; i++) {
@@ -53,25 +57,77 @@ public class MainFrame extends JFrame implements KeyListener {
                 gameMain.add(text[i][j]);
             }
         }
+        Wapper.setLayout(new BorderLayout());
+        Wapper.add(gameMain, BorderLayout.CENTER);
+        Wapper.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         this.setLayout(new BorderLayout());
-        this.add(gameMain, BorderLayout.CENTER);
+        this.add(Wapper);
     }
 
     public void initExplainPanel() { // 初始化遊玩規則介面
-        JPanel explainR = new JPanel();
-        JPanel explainL = new JPanel();
-        explainR.setLayout(new GridLayout(20, 100));
-        explainL.setLayout(new GridLayout(1, 1));
+        JPanel explainText = new JPanel();
+        JPanel explainState = new JPanel();
+        JPanel explainScore = new JPanel();
+        JPanel explain = new JPanel();
+        var font = new Font("微軟正黑體", Font.BOLD, 20);
+        
+        explainText.setLayout(new BoxLayout(explainText, BoxLayout.Y_AXIS));
+        explainState.setLayout(new BoxLayout(explainState, BoxLayout.Y_AXIS));
+        explainScore.setLayout(new BoxLayout(explainScore, BoxLayout.Y_AXIS));
 
-        explainR.add(new JLabel(" 空白鍵:改變方向 ")); // 說明文字
-        explainR.add(new JLabel(" 左鍵:方塊左移 "));
-        explainR.add(new JLabel(" 右鍵:方塊右移 "));
-        explainR.add(new JLabel("下鍵:方塊下移 ")); // -
-        explainL.add(new JLabel("    "));
-        explainR.add(gameState); // 把遊戲狀態加入說明介面
-        explainR.add(gameScore); // 把遊戲分數加入說明介面
-        this.add(explainR, BorderLayout.EAST); // 把說明加入主介面
-        this.add(explainL, BorderLayout.WEST);
+        var a = new JLabel("空白鍵:改變方向");// 操作方法說明文字
+        a.setFont(font);
+        explainText.add(a); 
+
+        var b = new JLabel("左鍵:方塊左移");
+        b.setFont(font);
+        explainText.add(b);
+
+        var c = new JLabel("右鍵:方塊右移");
+        c.setFont(font);
+        explainText.add(c);
+        
+        var d = new JLabel("下鍵:方塊下移");
+        d.setFont(font);
+        explainText.add(d);
+
+        var gameState = new JLabel("開始!     ");
+        gameState.setFont(font);
+
+        var gameScore = new JLabel("0      ");
+        gameScore.setFont(font);
+
+        explainState.add(gameState); // 把遊戲狀態加入說明介面
+        
+        explainScore.add(gameScore); // 把遊戲分數加入說明介面
+        
+        explainText.setSize(100, 500); 
+        var border = BorderFactory.createTitledBorder("操作方法");
+        border.setTitleFont(font);
+        border.setBorder(new LineBorder(Color.black, 3, true));
+        explainText.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+        explainState.setSize(100, 500);
+        var border2 = BorderFactory.createTitledBorder("遊戲狀態");
+        border2.setTitleFont(font);
+        border2.setBorder(new LineBorder(Color.black, 3, true));
+        explainState.setBorder(BorderFactory.createCompoundBorder(border2, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+        explainScore.setSize(100, 500);
+        var border3 = BorderFactory.createTitledBorder("得分");
+        border3.setTitleFont(font);
+        border3.setBorder(new LineBorder(Color.black, 3, true));
+        explainScore.setBorder(BorderFactory.createCompoundBorder(border3, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+        explain.setLayout(new BoxLayout(explain, BoxLayout.Y_AXIS));
+
+        explain.add(explainText);
+        explain.add(explainState);
+        explain.add(explainScore);
+
+        explain.setBorder(BorderFactory.createEmptyBorder(35, 0, 35, 35));
+        this.add(explain, BorderLayout.EAST); // 把說明加入主介面
+        
     }
 
     @Override
