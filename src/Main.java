@@ -129,20 +129,20 @@ public class Main {
         for (int k = row; k >= 1; k--) {
             for (int p = 1; p <= (MainFrame.gameY - 2); p++) {
                 if (MainFrame.data[k][p] == 1) {
-                    MainFrame.text[k][p].setBackground(Color.GREEN);//randomColor()
+                    MainFrame.text[k][p].setBackground(randomColor());
                 } else {
                     MainFrame.text[k][p].setBackground(Color.WHITE);
                 }
             }
         }
     }
-    /*
+    
     public static Color randomColor() { // 方塊隨機色
         int r = rng.nextInt(255);
         int g = rng.nextInt(255);
         int b = rng.nextInt(255);
         return new Color(r, g, b);
-    }*/
+    }
 
     public void fall(int i, int j) { // 使方塊下墜一列
         if (i > 0) {
@@ -171,7 +171,7 @@ public class Main {
         for (int k = 0; k < 4; k++) {
             for (int p = 0; p < 4; p++) {
                 if ((temp & rect) != 0) { // 若此處有方塊
-                    MainFrame.text[i][j].setBackground(Color.red); // 設位置藍色
+                    MainFrame.text[i][j].setBackground(randomColor()); // 設位置藍色
                 }
                 j++;
                 temp >>= 1;

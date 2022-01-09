@@ -94,44 +94,44 @@ public class MainFrame extends JFrame implements KeyListener {
             if (k == 1 || k == 2) { // 0x8888,0x000f
                 p = Main.allRect[k == 1 ? 2 : 1]; // 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
             if (k >= 3 && k <= 6) { // 0x888f,0xf888,0xf111,0x111f
                 p = Main.allRect[k + 1 > 6 ? 3 : k + 1];// 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
             if (k == 10 || k == 11) { // 0x0888,0x000e
                 p = Main.allRect[k == 10 ? 11 : 10]; // 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
             if (k == 12 || k == 13) { // 0x0088,0x000c
                 p = Main.allRect[k == 10 ? 11 : 10]; // 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
             if (k >= 14 && k <= 17) { // 0x08c8,0x00e4,0x04c4,0x004e
                 p = Main.allRect[k + 1 > 17 ? 14 : k + 1];// 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
             if (k == 18 || k == 19) { // 0x08c4,0x006c
                 p = Main.allRect[k == 18 ? 19 : 18]; // 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
 
             if (k == 20 || k == 21) { // 0x04c8,0x00c6
                 p = Main.allRect[k == 20 ? 21 : 20]; // 旋轉
                 if (canTure(p, Main.x, Main.y)) { // 判斷方塊是否可以旋轉
-                    p = Main.rect;
+                    Main.rect = p;
                 }
             }
             Main.draw(Main.x, Main.y);// 刷新旋轉後方塊
